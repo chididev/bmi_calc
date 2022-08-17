@@ -11,6 +11,7 @@ class ContainerCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.fromLTRB(5, 5, 5, 10),
       padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+      height: 180,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.blue),
         borderRadius: BorderRadius.circular(5),
@@ -35,7 +36,7 @@ class ContainerCard extends StatelessWidget {
           Icon(
             icon,
             color: Colors.blue,
-            size: 70.0,
+            size: 80.0,
           ),
           const SizedBox(
             height: 10.0,

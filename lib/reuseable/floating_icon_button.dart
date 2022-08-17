@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 class FloatingIconButton extends StatelessWidget {
-  const FloatingIconButton({required this.icon, required this.iconColor});
+  const FloatingIconButton(
+      {required this.icon, required this.iconColor, required this.onPress});
   final IconData icon;
   final Color iconColor;
+  final Function onPress;
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      onPressed: () {},
+      onPressed: () => onPress(),
       elevation: 2.0,
       fillColor: Colors.blue,
       shape: const CircleBorder(),
