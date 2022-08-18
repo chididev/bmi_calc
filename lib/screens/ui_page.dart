@@ -1,8 +1,10 @@
+import 'package:bmi_calc/services/app_brain.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bmi_calc/reuseable/container_tile.dart';
 import 'package:bmi_calc/reuseable/floating_icon_button.dart';
 import 'package:bmi_calc/reuseable/card_container.dart';
+import 'package:bmi_calc/screens/result_screen.dart';
 
 class UiPage extends StatefulWidget {
   const UiPage({Key? key}) : super(key: key);
@@ -18,10 +20,10 @@ class _UiPageState extends State<UiPage> {
   String? weightMetric = 'kg';
   String? heightMetric = 'cm';
 
-  void checkWeight(){
-    if(weight <= 0){
+  void checkWeight() {
+    if (weight <= 0) {
       weight = 0;
-    }else{
+    } else {
       weight;
     }
   }
@@ -41,7 +43,6 @@ class _UiPageState extends State<UiPage> {
       age;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +120,7 @@ class _UiPageState extends State<UiPage> {
                             ),
                             FloatingIconButton(
                                 onPress: () {
-                                  setState((){
+                                  setState(() {
                                     weight++;
                                     checkWeight();
                                   });
@@ -183,7 +184,7 @@ class _UiPageState extends State<UiPage> {
                           children: [
                             FloatingIconButton(
                                 onPress: () {
-                                  setState((){
+                                  setState(() {
                                     height--;
                                     checkHeight();
                                   });
@@ -198,7 +199,7 @@ class _UiPageState extends State<UiPage> {
                             ),
                             FloatingIconButton(
                                 onPress: () {
-                                  setState((){
+                                  setState(() {
                                     height++;
                                     checkHeight();
                                   });
@@ -262,7 +263,7 @@ class _UiPageState extends State<UiPage> {
                     children: [
                       FloatingIconButton(
                           onPress: () {
-                            setState((){
+                            setState(() {
                               age--;
                               checkAge();
                             });
@@ -277,7 +278,7 @@ class _UiPageState extends State<UiPage> {
                       ),
                       FloatingIconButton(
                           onPress: () {
-                            setState((){
+                            setState(() {
                               age++;
                               checkAge();
                             });
@@ -297,7 +298,20 @@ class _UiPageState extends State<UiPage> {
             height: 50,
             width: double.infinity,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                //AppBrain instance
+                AppBrain appBrain = AppBrain(weight: weight, height: height);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(builder: (context) {
+                    return ResultScreen(
+                      bmiResult: appBrain.bmi(),
+                      resultText: appBrain.getResult(),
+                      resultInterpretation: appBrain.interpretResult(),
+                    );
+                  }),
+                );
+              },
               child: const Text(
                 'CALCULATE',
                 style: TextStyle(
