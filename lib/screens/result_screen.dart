@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bmi_calc/reuseable/constants.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen({required this.resultText, required this.bmiResult, required this.resultInterpretation});
@@ -6,10 +8,25 @@ class ResultScreen extends StatelessWidget {
   final String bmiResult;
   final String resultInterpretation;
 
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: const Icon(
+          FontAwesomeIcons.barsStaggered,
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              FontAwesomeIcons.bell,
+              color: Colors.white,
+            ),
+            onPressed: () {},
+          )
+        ],
+      ),
       body: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -18,21 +35,18 @@ class ResultScreen extends StatelessWidget {
           child: Center(
             child: Text(
               'Result',
-              style: TextStyle(
-                fontSize: 35.0,
-                fontWeight: FontWeight.bold,
-              ),
+              style: kResultScreenHeadingFont,
             ),
           ),
         ),
         //Second Tile
         Expanded(
-          flex: 5,
+          flex: 7,
           child: Container(
             padding: const EdgeInsets.all(15),
             margin: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.blue),
+              color: kInactiveTileColor,
               borderRadius: BorderRadius.circular(5),
             ),
             child: Column(
@@ -40,29 +54,28 @@ class ResultScreen extends StatelessWidget {
               children: [
                 Text(
                   bmiResult,
-                  style: const TextStyle(
-                    fontSize: 25.0,
-                  ),
+                  style: kBmiResultFont,
                 ),
                 Text(
                   resultText,
-                  style: const TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
+                  style: kResultScoreFont,
                 ),
               ],
             ),
           ),
         ),
+        //Third Tile
         Expanded(
+          flex: 2,
           child: Center(
             child: Text(
               resultInterpretation,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 20,
-              ),
+              style: kResultInterpretationFont,
             ),
           ),
         ),
+        //Fourth Tile
         Container(
           margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
           color: Colors.green,
@@ -74,10 +87,7 @@ class ResultScreen extends StatelessWidget {
             },
             child: const Text(
               'RE-CALCULATE',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-              ),
+              style: kBottomButtonFontStyle,
             ),
           ),
         ),

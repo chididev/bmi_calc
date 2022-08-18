@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bmi_calc/reuseable/constants.dart';
 
 class CardContainer extends StatelessWidget {
   const CardContainer({required this.cardChild});
@@ -9,7 +10,7 @@ class CardContainer extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(3.0),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.blue),
+        color: kCardTileColor,
         borderRadius: BorderRadius.circular(5),
       ),
       child: cardChild,

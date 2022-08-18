@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bmi_calc/reuseable/constants.dart';
 
 class FloatingIconButton extends StatelessWidget {
   const FloatingIconButton(
@@ -12,7 +13,7 @@ class FloatingIconButton extends StatelessWidget {
     return RawMaterialButton(
       onPressed: () => onPress(),
       elevation: 2.0,
-      fillColor: Colors.blue,
+      fillColor: kCardIconColor,
       shape: const CircleBorder(),
       constraints: const BoxConstraints.tightFor(
         height: 26.0,

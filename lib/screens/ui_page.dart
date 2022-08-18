@@ -5,6 +5,12 @@ import 'package:bmi_calc/reuseable/container_tile.dart';
 import 'package:bmi_calc/reuseable/floating_icon_button.dart';
 import 'package:bmi_calc/reuseable/card_container.dart';
 import 'package:bmi_calc/screens/result_screen.dart';
+import 'package:bmi_calc/reuseable/constants.dart';
+
+enum Gender {
+  male,
+  female,
+}
 
 class UiPage extends StatefulWidget {
   const UiPage({Key? key}) : super(key: key);
@@ -14,6 +20,7 @@ class UiPage extends StatefulWidget {
 }
 
 class _UiPageState extends State<UiPage> {
+  Gender? selectedGender;
   int weight = 56;
   int height = 150;
   int age = 24;
@@ -48,8 +55,23 @@ class _UiPageState extends State<UiPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const Icon(
+          FontAwesomeIcons.barsStaggered,
+        ),
         centerTitle: true,
-        title: const Text('BMI CALCULATOR'),
+        title: const Text(
+          'BMI CALCULATOR',
+          style: kAppBarFontStyle,
+        ),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(
+                FontAwesomeIcons.bell,
+                color: Colors.white,
+              ),
+              onPressed: () {},
+            )
+          ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -64,20 +86,47 @@ class _UiPageState extends State<UiPage> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Gender',
+                    style: kTileHeadingFont,
                   ),
                 ),
                 Row(
-                  children: const [
+                  children: [
                     Expanded(
-                      child: ContainerCard(
-                        icon: FontAwesomeIcons.person,
-                        label: 'MALE',
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedGender = Gender.male;
+                          });
+                        },
+                        child: ContainerCard(
+                          color: selectedGender == Gender.male
+                              ? kBorderColor
+                              : kInactiveTileColor,
+                          iconCheckColor: selectedGender == Gender.male
+                              ? kBorderColor
+                              : kCardIconFontColor,
+                          icon: FontAwesomeIcons.person,
+                          label: 'MALE',
+                        ),
                       ),
                     ),
                     Expanded(
-                      child: ContainerCard(
-                        icon: FontAwesomeIcons.personDress,
-                        label: 'FEMALE',
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedGender = Gender.female;
+                          });
+                        },
+                        child: ContainerCard(
+                          color: selectedGender == Gender.female
+                              ? kBorderColor
+                              : kInactiveTileColor,
+                          iconCheckColor: selectedGender == Gender.female
+                              ? kBorderColor
+                              : kCardIconFontColor,
+                          icon: FontAwesomeIcons.personDress,
+                          label: 'FEMALE',
+                        ),
                       ),
                     ),
                   ],
@@ -93,6 +142,7 @@ class _UiPageState extends State<UiPage> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Weight',
+                    style: kTileHeadingFont,
                   ),
                 ),
                 Row(
@@ -114,9 +164,7 @@ class _UiPageState extends State<UiPage> {
                                 iconColor: Colors.white),
                             Text(
                               weight.toString(),
-                              style: const TextStyle(
-                                fontSize: 25,
-                              ),
+                              style: kCardFontStyle,
                             ),
                             FloatingIconButton(
                                 onPress: () {
@@ -138,6 +186,9 @@ class _UiPageState extends State<UiPage> {
                       child: CardContainer(
                         cardChild: Center(
                           child: DropdownButton<String>(
+                            style: kDropDownFontStyle,
+                            iconEnabledColor: Colors.black,
+                            dropdownColor: Colors.white,
                             value: weightMetric,
                             items: const [
                               DropdownMenuItem(
@@ -172,6 +223,7 @@ class _UiPageState extends State<UiPage> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Height',
+                    style: kTileHeadingFont,
                   ),
                 ),
                 Row(
@@ -193,9 +245,7 @@ class _UiPageState extends State<UiPage> {
                                 iconColor: Colors.white),
                             Text(
                               height.toString(),
-                              style: const TextStyle(
-                                fontSize: 25,
-                              ),
+                              style: kCardFontStyle,
                             ),
                             FloatingIconButton(
                                 onPress: () {
@@ -217,6 +267,9 @@ class _UiPageState extends State<UiPage> {
                       child: CardContainer(
                         cardChild: Center(
                           child: DropdownButton<String>(
+                            style: kDropDownFontStyle,
+                            iconEnabledColor: Colors.black,
+                            dropdownColor: Colors.white,
                             value: heightMetric,
                             items: const [
                               DropdownMenuItem(
@@ -255,11 +308,12 @@ class _UiPageState extends State<UiPage> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Age',
+                    style: kTileHeadingFont,
                   ),
                 ),
                 CardContainer(
                   cardChild: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       FloatingIconButton(
                           onPress: () {
@@ -272,9 +326,7 @@ class _UiPageState extends State<UiPage> {
                           iconColor: Colors.white),
                       Text(
                         age.toString(),
-                        style: const TextStyle(
-                          fontSize: 25,
-                        ),
+                        style: kCardFontStyle,
                       ),
                       FloatingIconButton(
                           onPress: () {
@@ -314,10 +366,7 @@ class _UiPageState extends State<UiPage> {
               },
               child: const Text(
                 'CALCULATE',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                ),
+                style: kBottomButtonFontStyle,
               ),
             ),
           ),
